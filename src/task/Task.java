@@ -1,7 +1,12 @@
 package task;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class Task {
     private static int idGenerator;
     private final int id;
@@ -20,6 +25,7 @@ public class Task {
         this.description = description;
     }
 
+    //abstract boolean appearsIn(LocalDate localDate);
     @Override
     public String toString() {
         return id + ". " + "\t\t\tЗадача" + "<<" + type + ">>: " + title + "\n Дата и время напоминания: " + dateTime + " \nОписание: " + description;

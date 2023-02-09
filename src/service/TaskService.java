@@ -3,22 +3,30 @@ package service;
 import task.Task;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class TaskService {
-    private Map<Integer, Task> taskMap;
-    private Collection<Task> removedTasks;
+    public Map<Integer, Task> taskMap;
+    public Collection<Task> removedTasks;
 
-    private void add(Task task) {
-
+    public TaskService() {
+        taskMap = new HashMap<>();
+        removedTasks = new ArrayList<>();
     }
 
-    private Task remove(int id) {
-        return null;
+    public void add(Task task) {
+        taskMap.put(task.getId(), task);
     }
 
-    Collection<Task> getAllByDate(LocalDateTime localDate) {
-        return null;
+    public Task remove(int id) {
+        removedTasks.add(taskMap.get(id));
+        taskMap.remove(id);
+        return removedTasks.stream().iterator().next();
+    }
+
+    public Collection<Task> getAllByDate(LocalDateTime localDate) {
+        Stream<Task> str = taskMap.values().stream();
+        return str.toList();
     }
 }
