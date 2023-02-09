@@ -1,19 +1,18 @@
 import service.TaskService;
-import task.Task;
-import task.Type;
+import task.*;
 
 import java.time.LocalDateTime;
 
 public class Menu {
     public static void main(String[] args) {
 
-        Task task = new Task("тест1esagfesgegsegesge", Type.WORK, LocalDateTime.now(), "test2");
-        Task task1 = new Task("тест2", Type.WORK, LocalDateTime.now(), "test2");
-        Task task2 = new Task("тест3", Type.WORK, LocalDateTime.now(), "test2");
+       DailyTask dailyTask = new DailyTask("тест1esagfesgegsegesge", Type.WORK, LocalDateTime.now(), "test2");
+        MonthlyTask monthlyTask = new MonthlyTask("тест2", Type.WORK, LocalDateTime.now(), "test2");
+        WeeklyTask weeklyTask = new WeeklyTask("тест3", Type.WORK, LocalDateTime.now(), "test2");
 
         TaskService ts = new TaskService();
-        ts.add(task);
-        ts.add(task1);
+        ts.add(dailyTask);
+        ts.add(monthlyTask);
 
 
 

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class Task {
+public abstract class Task {
     private static int idGenerator;
     private final int id;
     private String title;
@@ -25,7 +25,7 @@ public class Task {
         this.description = description;
     }
 
-    //abstract boolean appearsIn(LocalDate localDate);
+    abstract boolean appearsIn(LocalDate localDate);
     @Override
     public String toString() {
         return id + ". " + "\t\t\tЗадача" + "<<" + type + ">>: " + title + "\n Дата и время напоминания: " + dateTime + " \nОписание: " + description;
