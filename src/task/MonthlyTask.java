@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MonthlyTask extends Task{
-    public MonthlyTask(String title, Type type, LocalDateTime dateTime, String description) {
+    public MonthlyTask(String title, Type type, String dateTime, String description) {
         super(title, type, dateTime, description);
     }
 
