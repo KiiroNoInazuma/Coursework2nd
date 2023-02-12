@@ -31,6 +31,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return id + ". " + "\t\t\tЗадача" + "<<" + type + ">>: " + title + "\n Дата и время напоминания: " + dateTime + " \nОписание: " + description;
+        String date = dateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+        return id + ". " + "\t\t\tЗадача" + "<<" + type.type() + ">>: " + title + "\n Дата и время напоминания: " + date + " \nОписание: " + description;
     }
 }
