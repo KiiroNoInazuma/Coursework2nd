@@ -66,6 +66,7 @@ public class Menu {
     }
 
     static void removeTask() {
+        taskService.remove(scanner.nextInt());
 
     }
 
