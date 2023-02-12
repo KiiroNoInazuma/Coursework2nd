@@ -18,6 +18,7 @@ public abstract class Task {
     private String description;
 
     public Task(String title, Type type, String dateTime, String description) {
+        title = "\u001B[31m" + title+"\u001B[0m";
         DateTimeFormatter conversion = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         idGenerator++;
         this.id = idGenerator;
@@ -32,6 +33,11 @@ public abstract class Task {
     @Override
     public String toString() {
         String date = dateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
-        return id + ". " + "\t\t\tЗадача" + "<<" + type.type() + ">>: " + title + "\n Дата и время напоминания: " + date + " \nОписание: " + description;
+        return
+                id + ". " + "\u200E\u200E\u200E\u200E\u200E\u200E\u200E\u200E░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
+                        "\t\t\tЗадача" + "<<" + type.type() +
+                        ">>\n" + "\t\t\t"+title + "\n\tДата и время создания: " +
+                        date + " \n\tОписание: " + description +
+                        "\n\u200E\u200E\u200E\u200E\u200E\u200E\u200E\u200E  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░";
     }
 }

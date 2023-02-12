@@ -12,7 +12,7 @@ public class MonthlyTask extends Task {
     public boolean appearsIn(LocalDate localDate) {
         LocalDate outTime = getDateTime().toLocalDate();
         int check = Period.between(outTime, localDate).getDays();
-        if (localDate.getMonthValue() == 2) return check == 28;
+        if (localDate.getMonthValue() == 2) return check == 28||check == 0;
         if (localDate.lengthOfMonth() == 31) {
             return check == 0;
         } else {

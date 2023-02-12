@@ -19,16 +19,16 @@ public class Menu {
     static {
         System.out.println("""
                 \t\t\t●▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬●
-                \t\t\t\t\u200E\u200E\u200E\u200E\u200E\u200E\u200E\u200E░░░░░░░░░░░░░░░ ЕЖЕДНЕВНИК ░░░░░░░░░░░░░░
-                \t\t\t\u200E\u200E\u200E\u200E\u200E\u200E\u200E\u200E\u200E\u200E\u200E\u200E●▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬●
+                \t\t\t\t░░░░░░░░░░░░░░░ ЕЖЕДНЕВНИК ░░░░░░░░░░░░░░
+                \t\t\t●▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬●
                 """);
     }
 
 
     static void select(int choose) {
         if (choose == 1) addTask();
-        if (choose == 2) removeTask();
-        if (choose == 3) showTask();
+        if (choose == 2) showTask();
+        if (choose == 3) removeTask();
         if (choose == 0) exit = true;
     }
 
@@ -51,7 +51,7 @@ public class Menu {
         System.out.print("Заголовок --→ ");
         scanner.nextLine();
         title = scanner.nextLine();
-        System.out.println("\n\t\t\t\t\uD83D\uDCC5Введите дату задачи (00.00.0000 00:00): \uD83D\uDCC5");
+        System.out.println("\n\t\t\t\t\uD83D\uDCC5Введите дату задачи (dd.MM.yyyy HH:mm): \uD83D\uDCC5");
         System.out.print("Дата --→ ");
         dateTime = scanner.nextLine();
         System.out.println("\n\t\t\t\t\t\t\t\uD83D\uDCDDОписание задачи\uD83D\uDCDD");
@@ -68,18 +68,24 @@ public class Menu {
     }
 
     static void removeTask() {
+        System.out.println("Выберите номер задачи для удаления--> ");
         taskService.remove(scanner.nextInt());
+        System.out.println("Задача удалена!");
 
     }
 
     static void showTask() {
+        System.out.println("|Вводите дату в формате ~dd.MM.yyyy HH:mm~|");
+        System.out.print("\uD83D\uDCC6 Открыть задачу на --→ ");
         scanner.nextLine();
         taskService.getAllByDate(LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))).forEach(System.out::println);
+        System.out.println("Нажмите ENTER для выхода в меню");
+        scanner.nextLine();
     }
 
     public static void main(String[] args) {
         while (!exit) {
-            System.out.println("\n\t\t1. Добавить задачу\t2. Удалить задачу\t3.Показать задачу\t0.Выход");
+            System.out.println("\n\uD83D\uDCC5 1. Добавить задачу\t \uD83D\uDCDD 2.Показать задачу\t❌ 3. Удалить задачу\t\uD83D\uDEAA0.Выход");
             inputField();
             select(scanner.nextInt());
         }
