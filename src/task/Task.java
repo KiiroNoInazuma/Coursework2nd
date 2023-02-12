@@ -27,7 +27,7 @@ public abstract class Task {
         this.description = description;
     }
 
-    abstract boolean appearsIn(LocalDate localDate);
+    public abstract boolean appearsIn(LocalDate localDate);
 
     @Override
     public String toString() {

@@ -1,7 +1,9 @@
 package service;
 
+import task.OneTimeTask;
 import task.Task;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Stream;
@@ -15,6 +17,10 @@ public class TaskService {
         removedTasks = new ArrayList<>();
     }
 
+    public Map<Integer, Task> getTaskMap() {
+        return taskMap;
+    }
+
     public void add(Task task) {
         taskMap.put(task.getId(), task);
     }
@@ -25,8 +31,8 @@ public class TaskService {
         return removedTasks.stream().toList().get(id - 1);
     }
 
-    public Collection<Task> getAllByDate(String localDate) {
+    public Collection<Task> getAllByDate(LocalDate localDate) {
         Stream<Task> str = taskMap.values().stream();
-        return str.filter(s -> s.getDateTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")).equals(localDate)).toList();
+       return str.filter(s->s.appearsIn(localDate)).toList();
     }
 }

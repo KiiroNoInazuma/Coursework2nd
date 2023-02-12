@@ -1,15 +1,16 @@
 package task;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Period;
 
-public class WeeklyTask extends Task{
+public class WeeklyTask extends Task {
     public WeeklyTask(String title, Type type, String dateTime, String description) {
         super(title, type, dateTime, description);
     }
 
     @Override
-    boolean appearsIn(LocalDate localDate) {
-        return false;
+    public boolean appearsIn(LocalDate localDate) {
+        LocalDate outTime = getDateTime().toLocalDate();
+        return Period.between(outTime, localDate).getDays() % 7 == 0;
     }
 }

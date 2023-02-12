@@ -1,7 +1,6 @@
 package task;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class DailyTask extends Task {
     public DailyTask(String title, Type type, String dateTime, String description) {
@@ -9,7 +8,8 @@ public class DailyTask extends Task {
     }
 
     @Override
-    boolean appearsIn(LocalDate localDate) {
-        return false;
+    public boolean appearsIn(LocalDate localDate) {
+        LocalDate outTime = getDateTime().toLocalDate();
+        return localDate.equals(outTime)||localDate.isAfter(outTime);
     }
 }

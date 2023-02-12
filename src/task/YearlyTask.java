@@ -1,7 +1,7 @@
 package task;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Period;
 
 public class YearlyTask extends Task{
     public YearlyTask(String title, Type type, String dateTime, String description) {
@@ -9,7 +9,9 @@ public class YearlyTask extends Task{
     }
 
     @Override
-    boolean appearsIn(LocalDate localDate) {
-        return false;
+   public boolean appearsIn(LocalDate localDate) {
+        LocalDate outTime = getDateTime().toLocalDate();
+        int check = Period.between(outTime, localDate).getDays();
+        return Period.between(outTime, localDate).getDays() == 0;
     }
 }
