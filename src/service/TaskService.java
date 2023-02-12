@@ -15,9 +15,6 @@ public class TaskService {
         removedTasks = new ArrayList<>();
     }
 
-    public Map<Integer, Task> getTaskMap() {
-        return taskMap;
-    }
 
     public void add(Task task) {
         taskMap.put(task.getId(), task);
