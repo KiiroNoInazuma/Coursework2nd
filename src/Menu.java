@@ -72,7 +72,6 @@ public class Menu {
         System.out.println("Выберите номер задачи для удаления--> ");
         taskService.remove(scanner.nextInt());
         System.out.println("Задача удалена!");
-
     }
 
     static void showTask() {
