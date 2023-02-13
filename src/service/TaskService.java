@@ -4,6 +4,7 @@ import task.Task;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TaskService {
@@ -29,5 +30,10 @@ public class TaskService {
     public Collection<Task> getAllByDate(LocalDate localDate) {
         Stream<Task> str = taskMap.values().stream();
         return str.filter(s -> s.appearsIn(localDate)).toList();
+    }
+
+    public Collection<Task> getAllByDate() {
+        Stream<Task> str = taskMap.values().stream();
+        return str.collect(Collectors.toList());
     }
 }

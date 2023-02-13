@@ -31,6 +31,7 @@ public class Menu {
         if (choose == 2) showTask();
         if (choose == 3) removeTask();
         if (choose == 0) exit = true;
+        if(choose==9) showAll();
     }
 
     static void addTask() {
@@ -81,6 +82,9 @@ public class Menu {
         taskService.getAllByDate(LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))).forEach(System.out::println);
         System.out.println("Нажмите ENTER для выхода в меню");
         scanner.nextLine();
+    }
+    static void showAll(){
+        taskService.getAllByDate().forEach(System.out::println);
     }
 
     public static void main(String[] args) {
