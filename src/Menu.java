@@ -108,6 +108,7 @@ public class Menu {
             System.out.println("\n\uD83D\uDCC5 1. Добавить задачу\t \uD83D\uDCDD 2.Показать задачу\t❌ 3. Удалить задачу\t\uD83D\uDEAA0.Выход");
             inputField();
             select(scanner.next());
+
         }
     }
 }
