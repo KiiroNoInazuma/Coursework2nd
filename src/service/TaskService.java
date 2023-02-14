@@ -42,4 +42,10 @@ public class TaskService {
         Stream<Task> str = taskMap.values().stream();
         return str.collect(Collectors.toList());
     }
+
+    public void getRemovedTasks() {
+        for (Task removedTask : removedTasks) {
+            System.out.println(removedTask);
+        }
+    }
 }

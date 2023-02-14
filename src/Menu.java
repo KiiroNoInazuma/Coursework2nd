@@ -105,7 +105,10 @@ public class Menu {
     }
 
     static void showAll() {
+        System.out.println("Активные задач: ");
         taskService.getAllByDate().forEach(System.out::println);
+        System.out.println("Закрытые задачи: ");
+        taskService.getRemovedTasks();
     }
 
     public static void main(String[] args) {
@@ -113,15 +116,6 @@ public class Menu {
             System.out.println("\n\uD83D\uDCC5 1. Добавить задачу\t \uD83D\uDCDD 2.Показать задачу\t❌ 3.Удалить задачу \t\uD83D\uDCD64.Вывести весь список задач\t\uD83D\uDEAA0.Выход");
             inputField();
             select(scanner.next());
-
         }
-
-        /*Map<Integer, String> map = new HashMap<>();
-        map.put(1, "test");
-        System.out.println(map.containsValue(map.get(1)));
-*/
-        /*for(Map.Entry<Integer, String> st: map.entrySet()){
-            System.out.println(st.getKey()+" "+st.getValue());
-        }*/
     }
 }
