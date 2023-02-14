@@ -1,6 +1,7 @@
 import service.TaskService;
 import task.*;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -31,8 +32,8 @@ public class Menu {
             case "1" -> addTask();
             case "2" -> showTask();
             case "3" -> removeTask();
-            case "0" -> exit = true;
             case "4" -> showAll();
+            case "0" -> exit = true;
             default -> System.out.println("Ошибка ввода, попробуйте еще раз!");
         }
     }
@@ -69,32 +70,36 @@ public class Menu {
         System.out.println("\n\t\t\t\t\t\t\t\uD83D\uDCDDОписание задачи\uD83D\uDCDD");
         System.out.println("----------------------------------------------------------------------------------");
         description = scanner.nextLine();
-        switch (option) {
-            case "1" -> taskService.add(new OneTimeTask(title, select, dateTime, description));
-            case "2" -> taskService.add(new DailyTask(title, select, dateTime, description));
-            case "3" -> taskService.add(new WeeklyTask(title, select, dateTime, description));
-            case "4" -> taskService.add(new MonthlyTask(title, select, dateTime, description));
-            case "5" -> taskService.add(new YearlyTask(title, select, dateTime, description));
-            default -> {
-                System.out.println("Ошибка добавления задачи. Период действия заметки выбран некорректно! Задача не добавилась =(");
-                System.out.println("Нажмите ENTER для повторной попытки");
-                scanner.nextLine();
-                addTask();
+        try {
+            switch (option) {
+                case "1" -> taskService.add(new OneTimeTask(title, select, dateTime, description));
+                case "2" -> taskService.add(new DailyTask(title, select, dateTime, description));
+                case "3" -> taskService.add(new WeeklyTask(title, select, dateTime, description));
+                case "4" -> taskService.add(new MonthlyTask(title, select, dateTime, description));
+                case "5" -> taskService.add(new YearlyTask(title, select, dateTime, description));
+                default -> {
+                    System.out.println("Ошибка добавления задачи. Период действия заметки выбран некорректно! Задача не добавилась =(");
+                    System.out.println("Нажмите ENTER для повторной попытки");
+                    scanner.nextLine();
+                    addTask();
+                }
             }
+        } catch (DateTimeException e) {
+            System.out.println("Неверный ввод даты! |Вводите дату в формате ~dd.MM.yyyy HH:mm~|\nПример: 01.01.2021 12:12");
+            addTask();
         }
     }
 
     static void removeTask() {
         System.out.println("Выберите номер задачи для удаления--> ");
         taskService.remove(scanner.nextInt());
-        System.out.println("Задача удалена!");
     }
 
     static void showTask() {
-        System.out.println("|Вводите дату в формате ~dd.MM.yyyy HH:mm~|");
+        System.out.println("|Вводите дату в формате ~dd.MM.yyyy~|");
         System.out.print("\uD83D\uDCC6 Открыть задачу на --→ ");
         scanner.nextLine();
-        taskService.getAllByDate(LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))).forEach(System.out::println);
+        taskService.getAllByDate(LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy"))).forEach(System.out::println);
         System.out.println("Нажмите ENTER для выхода в меню");
         scanner.nextLine();
     }
@@ -105,10 +110,18 @@ public class Menu {
 
     public static void main(String[] args) {
         while (!exit) {
-            System.out.println("\n\uD83D\uDCC5 1. Добавить задачу\t \uD83D\uDCDD 2.Показать задачу\t❌ 3. Удалить задачу\t\uD83D\uDEAA0.Выход");
+            System.out.println("\n\uD83D\uDCC5 1. Добавить задачу\t \uD83D\uDCDD 2.Показать задачу\t❌ 3.Удалить задачу \t\uD83D\uDCD64.Вывести весь список задач\t\uD83D\uDEAA0.Выход");
             inputField();
             select(scanner.next());
 
         }
+
+        /*Map<Integer, String> map = new HashMap<>();
+        map.put(1, "test");
+        System.out.println(map.containsValue(map.get(1)));
+*/
+        /*for(Map.Entry<Integer, String> st: map.entrySet()){
+            System.out.println(st.getKey()+" "+st.getValue());
+        }*/
     }
 }

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
@@ -29,6 +30,10 @@ public abstract class Task {
     }
 
     public abstract boolean appearsIn(LocalDate localDate);
+
+    public LocalTime cutDate() {
+        return getDateTime().toLocalTime();
+    }
 
     @Override
     public String toString() {

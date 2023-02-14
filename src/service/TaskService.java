@@ -22,13 +22,19 @@ public class TaskService {
     }
 
     public Task remove(int id) {
-        removedTasks.add(taskMap.get(id));
-        taskMap.remove(id);
-        return removedTasks.stream().toList().get(id - 1);
+        if (taskMap.containsKey(id)) {
+            removedTasks.add(taskMap.get(id));
+            taskMap.remove(id);
+            System.out.println("Задача удалена!");
+            return removedTasks.stream().toList().get(id - 1);
+        } else {
+            System.out.println("Задачи №" + id + " не существует.");
+            return null;
+        }
     }
 
     public Collection<Task> getAllByDate(LocalDate localDate) {
-        Stream<Task> str = taskMap.values().stream();
+        Stream<Task> str = taskMap.values().stream().sorted(Comparator.comparing(Task::cutDate));
         return str.filter(s -> s.appearsIn(localDate)).toList();
     }
 
