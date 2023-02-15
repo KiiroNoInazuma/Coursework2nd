@@ -1,18 +1,19 @@
+import exceptions.TaskNotFoundException;
 import service.TaskService;
 import task.*;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
-    static Scanner scanner = new Scanner(System.in);
-    static TaskService taskService = new TaskService();
-    static boolean exit;
+    static private Scanner scanner = new Scanner(System.in);
+    static private TaskService taskService = new TaskService();
+    static private boolean exit;
 
-    static void inputField() {
+    static private void inputField() {
         System.out.print("Поле для ввода --→ ");
     }
 
@@ -27,7 +28,7 @@ public class Menu {
     }
 
 
-    static void select(String choose) {
+    static private void select(String choose) {
         switch (choose) {
             case "1" -> addTask();
             case "2" -> showTask();
@@ -38,7 +39,7 @@ public class Menu {
         }
     }
 
-    static void addTask() {
+    static private void addTask() {
         String title;
         String dateTime;
         String description;
@@ -51,7 +52,7 @@ public class Menu {
         String type = scanner.next();
         try {
             select = (type.equals("1")) ? Type.WORK : (type.equals("2")) ? Type.PERSONAL : Type.valueOf("Error");
-        } catch (IllegalArgumentException e) {
+        } catch (TaskNotFoundException e) {
             System.out.println("Такого типа не существует! Попробуйте еще раз!");
             addTask();
         }
@@ -90,21 +91,29 @@ public class Menu {
         }
     }
 
-    static void removeTask() {
-        System.out.println("Выберите номер задачи для удаления--> ");
-        taskService.remove(scanner.nextInt());
+    static private void removeTask() {
+        System.out.print("Выберите номер задачи для удаления--> ");
+        try {
+            taskService.remove(scanner.nextInt());
+        }catch (InputMismatchException e){
+            System.out.println("❗ Ошибка числа или значения. Введите номер задачи ❗");
+        }
     }
 
-    static void showTask() {
+    static private void showTask() {
         System.out.println("|Вводите дату в формате ~dd.MM.yyyy~|");
         System.out.print("\uD83D\uDCC6 Открыть задачу на --→ ");
         scanner.nextLine();
-        taskService.getAllByDate(LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy"))).forEach(System.out::println);
+        try {
+            taskService.getAllByDate(LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy"))).forEach(System.out::println);
+        }catch (DateTimeException e){
+            System.out.println("Неверный ввод даты! |Вводите дату в формате ~dd.MM.yyyy ~|\nПример: 01.01.2021");
+        }
         System.out.println("Нажмите ENTER для выхода в меню");
         scanner.nextLine();
     }
 
-    static void showAll() {
+    static private void showAll() {
         System.out.println("Активные задач: ");
         taskService.getAllByDate().forEach(System.out::println);
         System.out.println("Закрытые задачи: ");

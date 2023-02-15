@@ -1,7 +1,8 @@
 package exceptions;
 
-import task.Type;
-
-public class TaskNotFoundException {
+public class TaskNotFoundException extends IllegalArgumentException {
+    TaskNotFoundException(String text){
+        super(text);
+    }
 
 }
