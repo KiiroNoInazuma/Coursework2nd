@@ -4,13 +4,12 @@ import task.*;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
-    static private Scanner scanner = new Scanner(System.in);
-    static private TaskService taskService = new TaskService();
+    static private final Scanner scanner = new Scanner(System.in);
+    static private final TaskService taskService = new TaskService();
     static private boolean exit;
 
     static private void inputField() {

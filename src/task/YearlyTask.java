@@ -11,7 +11,6 @@ public class YearlyTask extends Task{
     @Override
    public boolean appearsIn(LocalDate localDate) {
         LocalDate outTime = getDateTime().toLocalDate();
-        int check = Period.between(outTime, localDate).getDays();
         return Period.between(outTime, localDate).getDays() == 0;
     }
 }
