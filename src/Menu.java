@@ -94,23 +94,25 @@ public class Menu {
     static private void removeTask() {
         System.out.print("Выберите номер задачи для удаления--> ");
         try {
-            taskService.remove(scanner.nextInt());
-        }catch (InputMismatchException e){
+            taskService.remove(Integer.parseInt(scanner.next()));
+        }catch (NumberFormatException e){
             System.out.println("❗ Ошибка числа или значения. Введите номер задачи ❗");
+            removeTask();
         }
     }
 
     static private void showTask() {
-        System.out.println("|Вводите дату в формате ~dd.MM.yyyy~|");
+        System.out.println("|Введите дату в формате ~dd.MM.yyyy~|");
         System.out.print("\uD83D\uDCC6 Открыть задачу на --→ ");
         scanner.nextLine();
         try {
             taskService.getAllByDate(LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy"))).forEach(System.out::println);
         }catch (DateTimeException e){
-            System.out.println("Неверный ввод даты! |Вводите дату в формате ~dd.MM.yyyy ~|\nПример: 01.01.2021");
+            System.out.println("❗ Неверный ввод даты ❗");
         }
         System.out.println("Нажмите ENTER для выхода в меню");
         scanner.nextLine();
+
     }
 
     static private void showAll() {
